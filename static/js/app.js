@@ -37,5 +37,20 @@ d3.json("/data/samples.json").then((importedData) => {
     //==================================================//
     //           **Create top 10 Bar Chart**            //
     //==================================================//
+    //Grab patient sampleData based on patient id
+    var newSample = sampleData.filter((sample) => sample.id.toString() === selectValue);
+    
+    //INject data to bar graph in html
+    var BAR = d3.select("#bar");
+    BAR.html("");
+    var sampleValues = newSample.map((sample) => sample.sample_values.slice(0,10))
+    var sampleID = newSample.map((sample) => sample.otu_ids.slice(0,10))
+    var sampleLabel = newSample.map((sample) => sample.otu_labels.slice(0,10))
+    var sampleID = sampleID.map((sample) => sample.toString())
+    console.log(sampleValues)
+    console.log(sampleID)
+    console.log(sampleLabel)
+  
+  
   }
 });
