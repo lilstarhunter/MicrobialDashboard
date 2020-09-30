@@ -4,9 +4,10 @@ d3.json("/data/samples.json").then((importedData) => {
   var metaData = importedData.metadata;
   var sampleData = importedData.samples;
   var nameData = importedData.names;
-  console.log(Object.values(nameData));
+  // console.log(Object.values(nameData));
 
   var select = d3.select("select").on("change", optionChanged);
+  
   var options = select
     .selectAll("option")
     .data(nameData)
@@ -41,16 +42,34 @@ d3.json("/data/samples.json").then((importedData) => {
     var newSample = sampleData.filter((sample) => sample.id.toString() === selectValue);
     
     //INject data to bar graph in html
-    var BAR = d3.select("#bar");
-    BAR.html("");
+    // var BAR = d3.select("#bar");
+
+    //Grab variables for graphing
     var sampleValues = newSample.map((sample) => sample.sample_values.slice(0,10))
     var sampleID = newSample.map((sample) => sample.otu_ids.slice(0,10))
     var sampleLabel = newSample.map((sample) => sample.otu_labels.slice(0,10))
-    var sampleID = sampleID.map((sample) => sample.toString())
+    // var sampleIDString = sampleID.map((sample) => sample.toString())
     console.log(sampleValues)
-    console.log(sampleID)
+    // console.log(sampleIDString)
     console.log(sampleLabel)
-  
-  
-  }
-});
+
+    //Create a trace
+    var trace = {
+      x: sampleID,
+      y: sampleValues,
+      type: "bar",
+      // orientation: "h"
+
+    };
+    var data = [trace]
+    var layout = {
+      title: "Top 10 Bacterial Strains",
+      xaxis: { title: "OTU ID" },
+      yaxis: { title: "Volume"},
+    };
+
+    Plotly.newPlot("bar", data, layout)
+    
+  };
+  optionChanged()
+})
