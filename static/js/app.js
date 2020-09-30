@@ -1,10 +1,12 @@
-//Grab the JSON object
-d3.json("/data/samples.json").then((importedData) => {
+const selector = d3.select("#selDataset");
+
+  function optionChanged() {
+    //Grab the JSON object
+  d3.json("/data/samples.json").then((importedData) => {
   //create data variables for each object in the dataset
   var metaData = importedData.metadata;
   var sampleData = importedData.samples;
   var nameData = importedData.names;
-  // console.log(Object.values(nameData));
 
   var select = d3.select("select").on("change", optionChanged);
   
@@ -17,7 +19,6 @@ d3.json("/data/samples.json").then((importedData) => {
       return d;
     });
 
-  function optionChanged() {
     selectValue = d3.select("select").property("value");
 
     //==================================================//
@@ -40,36 +41,36 @@ d3.json("/data/samples.json").then((importedData) => {
     //==================================================//
     //Grab patient sampleData based on patient id
     var newSample = sampleData.filter((sample) => sample.id.toString() === selectValue);
-    
-    //INject data to bar graph in html
-    // var BAR = d3.select("#bar");
-
+  
     //Grab variables for graphing
     var sampleValues = newSample.map((sample) => sample.sample_values.slice(0,10))
-    var sampleID = newSample.map((sample) => sample.otu_ids.slice(0,10))
     var sampleLabel = newSample.map((sample) => sample.otu_labels.slice(0,10))
-    // var sampleIDString = sampleID.map((sample) => sample.toString())
-    console.log(sampleValues)
-    // console.log(sampleIDString)
-    console.log(sampleLabel)
+    var values = newSample[0]['sample_values']
+    var ids = newSample[0]['otu_ids'].map(elem => `OTU ${elem.toString()}`).slice(0,10)
+
 
     //Create a trace
     var trace = {
-      x: sampleID,
-      y: sampleValues,
+      x: sampleValues[0],
+      y: ids,
       type: "bar",
-      // orientation: "h"
+      orientation: "h"
 
     };
-    var data = [trace]
+    var chartData = [trace]
     var layout = {
       title: "Top 10 Bacterial Strains",
-      xaxis: { title: "OTU ID" },
-      yaxis: { title: "Volume"},
+      yaxis: { type: 'category' }
     };
 
-    Plotly.newPlot("bar", data, layout)
+    Plotly.newPlot("bar", chartData, layout)
+
+    //==================================================//
+    //             **Create Bubble Chart**              //
+    //==================================================//
     
-  };
-  optionChanged()
-})
+  })
+
+}
+
+selector.on('change', optionChanged(this.value))
