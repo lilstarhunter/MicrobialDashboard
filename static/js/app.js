@@ -96,23 +96,44 @@ const selector = d3.select("#selDataset");
   //==================================================//
   //             **Create Washing Gauge**             //
   //==================================================//
-  console.log(result.wfreq)
-  var gaugeDiv = document.getElementById("gauge")
-  
-  var traceA = {
-    type: "pie",
+  var newFreq = result.wfreq
+
+   // Trig to calc meter point
+   var degrees = 180-(newFreq-1)*45;
+   alert(degrees);
+        radius = .5;
+   var radians = degrees * Math.PI / 180;
+   var x = radius * Math.cos(radians);
+   var y = radius * Math.sin(radians);
+ 
+   // Path: may have to change to create a better triangle
+  var mainPath = 'M -.0 -0.035 L .0 0.035 L ',
+      pathX = String(x),
+      space = ' ',
+      pathY = String(y),
+      pathEnd = ' Z';
+  var path = mainPath.concat(pathX,space,pathY,pathEnd);
+
+
+  var trace3 = [{ type: "category",
+    //Create center needle
+    x: [0], y: [0],
+    marker: {size: 28, color: '840000'},
     showlegend: false,
-    hole: 0.4,
-    rotation: 90,
-    values: [
+    name: "Wash Frequency", text: newFreq, hoverinfo: "text+name"},
+    //Set meter values
+    {
+      values: [
       100/9,
       100/9,
       100/9,
       100/9,
       100/9,
       100/9,
-      100
-    ],
+      100/9,
+      100/9,
+      100/9,
+      100],
     text: [
       "8-9",
       "7-8",
@@ -123,8 +144,7 @@ const selector = d3.select("#selDataset");
       "2-3",
       "1-2",
       "0-1",
-      ""
-    ],
+      ""], 
     textinfo: "text",
     textposition: "inside",
     marker: {
@@ -136,19 +156,41 @@ const selector = d3.select("#selDataset");
         "rgba(210, 206, 145, .5)",
         "rgba(216, 227, 161, .5)",
         "rgba(238, 221, 182, .5)",
-        "rgba(233, 203, 204, .5)",
+        // "rgba(233, 203, 204, .5)",
         "rgba(244, 241, 229, .5)",
         "rgba(247, 243, 237, .5)",
-        "rgba(255, 255, 255, 0)"
-      ]
-    }
-  }
-  var degrees = 115, radius = .6;
-  var radians = degrees * Math.PI / 180;
-  var x = -1 * radius * Math.cos(radians);
-  var y = radius * Math.sin(radians);
-  })
+        "rgba(255, 255, 255, 0)"]},
+      type: "pie",
+      showlegend: false,
+      hole: 0.4,
+      rotation: 90,
+      // hoverinfo: newFreq,
+      textinfo: "text",
+      textposition: "inside"
+  }];
 
-}
+    var layout = {
+      //Create the triangle
+      shapes:[{
+      type: 'path',
+      path: path,
+    fillcolor: '850000',
+    line: {
+      color: '850000'
+    }
+  }],
+  title: 'Belly Button Washing Frequency ',
+  //Add sub title
+  height: 500,
+  width: 600,
+  xaxis: {type:'category',zeroline:false, showticklabels:false,
+  showgrid: false, range: [-1, 1]},
+  yaxis: {type:'category',zeroline:false, showticklabels:false,
+  showgrid: false, range: [-1, 1]}
+  }
+ 
+
+Plotly.newPlot('gauge', trace3, layout);
+})}
 
 selector.on('change', optionChanged(this.value))
