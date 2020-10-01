@@ -60,7 +60,10 @@ const selector = d3.select("#selDataset");
     var chartData = [trace]
     var layout = {
       title: "Top 10 Bacterial Strains",
-      yaxis: { type: 'category' }
+      yaxis: {
+      type: 'category' },
+      xaxis: {  title: "Sample Volume"}
+
     };
 
     Plotly.newPlot("bar", chartData, layout)
