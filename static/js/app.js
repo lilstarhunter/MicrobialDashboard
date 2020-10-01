@@ -143,6 +143,10 @@ const selector = d3.select("#selDataset");
       ]
     }
   }
+  var degrees = 115, radius = .6;
+  var radians = degrees * Math.PI / 180;
+  var x = -1 * radius * Math.cos(radians);
+  var y = radius * Math.sin(radians);
   })
 
 }
