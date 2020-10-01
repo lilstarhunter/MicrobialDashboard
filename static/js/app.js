@@ -59,7 +59,6 @@ const selector = d3.select("#selDataset");
     };
     var chartData = [trace]
     var layout = {
-      title: "Top 10 Bacterial Strains",
       yaxis: {
       type: 'category' },
       xaxis: {  title: "Sample Volume"}
@@ -71,7 +70,7 @@ const selector = d3.select("#selDataset");
     //==================================================//
     //             **Create Bubble Chart**              //
     //==================================================//
-    //Grab variables for graphing
+    //Create variable for bubble sizing
     var desired_maximum_marker_size = 10
 
     var trace2 = {
@@ -94,6 +93,56 @@ const selector = d3.select("#selDataset");
   }
   Plotly.newPlot("bubble", bubbleData, bubbleLayout)
 
+  //==================================================//
+  //             **Create Washing Gauge**             //
+  //==================================================//
+  console.log(result.wfreq)
+  var gaugeDiv = document.getElementById("gauge")
+  
+  var traceA = {
+    type: "pie",
+    showlegend: false,
+    hole: 0.4,
+    rotation: 90,
+    values: [
+      100/9,
+      100/9,
+      100/9,
+      100/9,
+      100/9,
+      100/9,
+      100
+    ],
+    text: [
+      "8-9",
+      "7-8",
+      "6-7",
+      "5-6",
+      "4-5",
+      "3-4",
+      "2-3",
+      "1-2",
+      "0-1",
+      ""
+    ],
+    textinfo: "text",
+    textposition: "inside",
+    marker: {
+      colors: [
+        "rgba(142, 179, 141, .5)",
+        "rgba(148, 186, 145, .5)",
+        "rgba(150, 190, 131, .5)",
+        "rgba(187, 203, 149, .5)",
+        "rgba(210, 206, 145, .5)",
+        "rgba(216, 227, 161, .5)",
+        "rgba(238, 221, 182, .5)",
+        "rgba(233, 203, 204, .5)",
+        "rgba(244, 241, 229, .5)",
+        "rgba(247, 243, 237, .5)",
+        "rgba(255, 255, 255, 0)"
+      ]
+    }
+  }
   })
 
 }
