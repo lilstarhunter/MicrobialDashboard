@@ -50,7 +50,7 @@ const selector = d3.select("#selDataset");
 
     //Create a trace
     var trace = {
-      x: sampleValues[0].slice(0,10),
+      x: sampleValues[0].slice(0,10).reverse(),
       y: ids.slice(0,10),
       text: sampleLabel[0].slice(0,10),
       type: "bar",
