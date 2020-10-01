@@ -1,6 +1,6 @@
 # Belly Button Biodiversity
 
-![Bacteria](Images/bacteria.jpeg)
+<img src="/Images/bacteria.jpg" height = 400px width = 1000px>
 
 In this assignment, you will build an interactive dashboard to explore the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/), which catalogs the microbes that colonize human navels.
 
