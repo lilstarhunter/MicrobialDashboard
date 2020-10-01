@@ -84,8 +84,12 @@ const selector = d3.select("#selDataset");
       }
     }
   var bubbleData = [trace2]
-  console.log(bubbleData)
-  Plotly.newPlot("bubble", bubbleData)
+  var bubbleLayout = {
+    xaxis : { title: "OTU ID"},
+    yaxis: { title: "Sample Volume"}
+
+  }
+  Plotly.newPlot("bubble", bubbleData, bubbleLayout)
 
   })
 
