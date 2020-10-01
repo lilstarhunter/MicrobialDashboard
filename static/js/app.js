@@ -43,16 +43,16 @@ const selector = d3.select("#selDataset");
     var newSample = sampleData.filter((sample) => sample.id.toString() === selectValue);
   
     //Grab variables for graphing
-    var sampleValues = newSample.map((sample) => sample.sample_values.slice(0,10))
-    var sampleLabel = newSample.map((sample) => sample.otu_labels.slice(0,10))
-    var values = newSample[0]['sample_values']
-    var ids = newSample[0]['otu_ids'].map(elem => `OTU ${elem.toString()}`).slice(0,10)
-
+    var sampleValues = newSample.map((sample) => sample.sample_values)
+    var sampleLabel = newSample.map((sample) => sample.otu_labels)
+    var sampleID = newSample.map((sample) => sample.otu_ids)
+    var ids = newSample[0]['otu_ids'].map(elem => `OTU ${elem.toString()}`)
 
     //Create a trace
     var trace = {
-      x: sampleValues[0],
-      y: ids,
+      x: sampleValues[0].slice(0,10),
+      y: ids.slice(0,10),
+      text: sampleLabel[0].slice(0,10),
       type: "bar",
       orientation: "h"
 
@@ -68,7 +68,25 @@ const selector = d3.select("#selDataset");
     //==================================================//
     //             **Create Bubble Chart**              //
     //==================================================//
-    
+    //Grab variables for graphing
+    var desired_maximum_marker_size = 10
+
+    var trace2 = {
+      x: sampleID[0],
+      y: sampleValues[0],
+      mode: "markers",
+      text: sampleLabel[0],
+      marker: {
+        size: sampleValues[0],
+        color: sampleID[0],
+        sizeref: 2.0 * Math.max(0.2) / (desired_maximum_marker_size),
+        sizemode: 'area'
+      }
+    }
+  var bubbleData = [trace2]
+  console.log(bubbleData)
+  Plotly.newPlot("bubble", bubbleData)
+
   })
 
 }
