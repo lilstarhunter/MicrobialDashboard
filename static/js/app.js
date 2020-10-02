@@ -2,7 +2,7 @@ const selector = d3.select("#selDataset");
 
   function optionChanged() {
     //Grab the JSON object
-  d3.json("/data/samples.json").then((importedData) => {
+  d3.json("./data/samples.json").then((importedData) => {
   //create data variables for each object in the dataset
   var metaData = importedData.metadata;
   var sampleData = importedData.samples;
