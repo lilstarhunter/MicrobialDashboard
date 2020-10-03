@@ -61,7 +61,8 @@ const selector = d3.select("#selDataset");
     var layout = {
       yaxis: {
       type: 'category' },
-      xaxis: {  title: "Sample Volume"}
+      xaxis: {  title: "Sample Volume"},
+      title: "Top 10 Bacterial Strains"
 
     };
 
