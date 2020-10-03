@@ -99,7 +99,7 @@ const selector = d3.select("#selDataset");
   var newFreq = result.wfreq
 
    // Trig to calc meter point
-   var degrees = 180-(newFreq);
+   var degrees = 180-(newFreq*20);
         radius = .5;
    var radians = degrees * Math.PI / 180;
    var x = radius * Math.cos(radians);
