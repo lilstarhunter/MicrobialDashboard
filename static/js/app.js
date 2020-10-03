@@ -178,7 +178,7 @@ const selector = d3.select("#selDataset");
       color: '850000'
     }
   }],
-  title: 'Belly Button Washing Frequency ',
+  title: '<b> Belly Button Washing Frequency </b> <br> Scrubs per Week ',
   //Add sub title
   height: 500,
   width: 600,
